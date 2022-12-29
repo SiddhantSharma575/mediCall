@@ -1,0 +1,6 @@
+.all_order {
+    display: flex;
+    padding: 3rem;
+    align-items: center;
+    justify-content: space-around;
+}

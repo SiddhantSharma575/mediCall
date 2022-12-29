@@ -1,0 +1,141 @@
+.main_cart_container {
+    padding: 50px;
+    display: flex;
+}
+
+.cart_left {
+    flex: 2;
+}
+
+.main_cart_right {
+    flex: 1;
+    margin-right: 2rem;
+}
+
+.main_cart_imgContainer {
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+.main_cart_imgContainer > img {
+    width: 100px;
+    height: 100px;
+}
+
+.cart_table {
+    width: 100%;
+    border-spacing: 20px;
+    display: flex;
+    flex-direction: column;   
+}
+
+.cart_trTitle {
+    display: flex;
+     align-items:  center;
+    justify-content: space-around;
+}
+
+.cart_tr {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.main_cart_name {
+    font-weight: 500;
+    color: #d1411e;
+    font-size: 18px;
+}
+
+.main_cart_total {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.main_cart_wrapper {
+    width: 90%;
+    max-height: 300px;
+    background-color: #333;
+    padding: 50px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+}
+
+.main_cart_totalText {
+    margin-right: 10px;
+}
+
+.main_cart_button {
+    height: 30px;
+    color: #d1411e;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 480px) {
+    .main_cart_container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .cart_table {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .trTitle {
+        display: none;
+    }
+
+    .tr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .imgContainer {
+        width: 35vw;
+        height: 35vw;
+    }
+
+    .name,
+    .total {
+        font-size: 24px;
+    }
+
+    .extras,
+    .price,
+    .quantity {
+        font-size: 22px;
+    }
+
+    .price::before {
+        content: "Price: ";
+        font-weight: 500;
+    }
+
+    .quantity::before {
+        content: "Quantity: ";
+        font-weight: 500;
+    }
+
+    .total::before {
+        content: "Total: ";
+        font-weight: 500;
+    }
+
+    .wrapper {
+        width: 100%;
+    }
+}
