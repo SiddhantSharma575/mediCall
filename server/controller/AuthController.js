@@ -75,21 +75,24 @@ const login = async (req, res, next) => {
             return next(CustomErrorHandler.wrongCredentials())
         }
 
-        const access_token = JwtService.sign({
-            _id: isExist._id,
-            role: isExist.role
-        })
+        // const access_token = JwtService.sign({
+        //     _id: isExist._id,
+        //     role: isExist.role
+        // })
 
-        res.cookie(String(isExist._id), access_token, {
-            path: "/",
-            expires: new Date(Date.now() + 1000 * 30), // 30 seconds
-            httpOnly: true,
-            sameSite: "lax",
-        });
+        // res.cookie(String(isExist._id), access_token, {
+        //     path: "/",
+        //     expires: new Date(Date.now() + 1000 * 30), // 30 seconds
+        //     httpOnly: true,
+        //     sameSite: "lax",
+        // });
 
-
+        const { _id, name, email, role } = isExist
         res.json({
-            access_token: access_token
+            _id,
+            name,
+            email,
+            role
         })
     } catch (error) {
         return next(error)
@@ -97,69 +100,21 @@ const login = async (req, res, next) => {
 
 }
 
-const verifyToken = (req, res, next) => {
-    const cookies = req.headers.cookie;
-    const token = cookies.split("=")[1];
-    console.log(token)
-    const vertok = JwtService.verify(token, process.env.JWT_SECRET);
-    if (!vertok) {
-        return next(CustomErrorHandler.unAuthorized())
-    }
-    req.id = vertok._id;
-    req.role = vertok.role;
-    next()
-}
-
 const getUser = async (req, res, next) => {
-    const userId = req.id;
     let fetchuser;
-    let token = ""
     try {
-        fetchuser = await user.findById(userId, "-password")
+        fetchuser = await user.findById(req.params.id, "-password")
         if (!fetchuser) {
             return next(CustomErrorHandler.unAuthorized())
         }
     } catch (error) {
         return next(error)
     }
-    const cookies = req.headers.cookie;
-    token = cookies.split("=")[1];
-    return res.json({ fetchuser, token })
-}
-
-const refreshToken = (req, res, next) => {
-    const cookies = req.headers.cookie;
-    const prevToken = cookies.split("=")[1];
-    if (!prevToken) {
-        return res.status(400).json({ message: "Couldn't find token" });
-    }
-    const fetchedUser = JwtService.verify(prevToken, process.env.JWT_SECRET);
-    if (!fetchedUser) {
-        return next(CustomErrorHandler.unAuthorized())
-    }
-    res.clearCookie(`${fetchedUser._id}`);
-    req.cookies[`${fetchedUser._id}`] = "";
-    const token = JwtService.sign({
-        _id: fetchedUser._id,
-        role: fetchedUser.role
-    })
-    console.log(token)
-    res.cookie(String(fetchedUser._id), token, {
-        path: "/",
-        expires: new Date(Date.now() + 1000 * 30), // 30 seconds
-        httpOnly: true,
-        sameSite: "lax",
-    });
-
-    req.id = fetchedUser._id;
-    req.role = fetchedUser.role;
-    req.token = token;
-    next()
+    const { _id, name, email, role } = fetchuser;
+    return res.json({ _id, name, email, role })
 }
 
 
 exports.register = register;
 exports.login = login;
-exports.verifyToken = verifyToken;
 exports.getUser = getUser;
-exports.refreshToken = refreshToken;

@@ -11,8 +11,19 @@ import Profile from './pages/Profile';
 import SingleProduct from './pages/SingleProduct';
 import Order from './pages/Order';
 import AllOrders from './pages/AllOrders';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setUser } from "./redux/userSlice"
 
 function App() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem("user"))
+    if (currentUser) {
+      dispatch(setUser(currentUser))
+    }
+  }, [])
+
   return (
     <BrowserRouter>
       <Routes>

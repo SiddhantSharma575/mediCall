@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import './order.css'
@@ -6,10 +6,23 @@ import Paid from "../images/paid.png"
 import Checked from "../images/checked.png"
 import Bike from "../images/bike.png"
 import Delivered from "../images/delivered.png"
-
+import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import axios from 'axios'
+let status = 0;
 const Order = () => {
-    const status = 0;
-
+    const [singleOrder, setSingleOrder] = useState()
+    const location = useLocation()
+    console.log(location.state.id)
+    useEffect(() => {
+        const getSingleProd = async () => {
+            const resp = await axios.get("http://localhost:5000/order/" + location.state.id)
+            console.log(resp.data)
+            status = resp.data.status;
+            setSingleOrder(resp.data)
+        }
+        getSingleProd()
+    }, [])
     const statusClass = (index) => {
         if (index - status < 1) return "done";
         if (index - status === 1) return "inProgress";
@@ -30,16 +43,16 @@ const Order = () => {
                             </tr>
                             <tr className="order_tr">
                                 <td>
-                                    <span className="order_id">129837819237</span>
+                                    <span className="order_id">{singleOrder && singleOrder._id}</span>
                                 </td>
                                 <td>
-                                    <span className="order_name">John Doe</span>
+                                    <span className="order_name">{singleOrder && singleOrder.customer}</span>
                                 </td>
                                 <td>
-                                    <span className="order_address">Elton st. 212-33 LA</span>
+                                    <span className="order_address">{singleOrder && singleOrder.address}</span>
                                 </td>
                                 <td>
-                                    <span className="order_total">$79.80</span>
+                                    <span className="order_total">₹{singleOrder && singleOrder.total}</span>
                                 </td>
                             </tr>
                         </table>
@@ -90,9 +103,9 @@ const Order = () => {
                     <div className="main_cart_wrapper">
                         <h2 className="main_cart_title">CART TOTAL</h2>
                         <div className="main_cart_totalText">
-                            <b className="main_carttotalTextTitle">Subtotal:</b>₹39.60
+                            <b className="main_carttotalTextTitle">Subtotal:</b>₹{singleOrder && singleOrder.total}
                         </div>
-                        <button className="main_cart_button">PAID!</button>
+                        <button className="main_cart_button">CASH ON DELIVERY!</button>
                     </div>
                 </div>
             </div>

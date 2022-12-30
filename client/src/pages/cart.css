@@ -67,6 +67,14 @@
     color: white;
 }
 
+.main_cart_wrapper > input {
+    margin: 2rem;
+    padding: 1rem;
+    border: 0;
+    border-radius: 0.5rem;
+    outline: none;
+}
+
 .main_cart_totalText {
     margin-right: 10px;
 }
