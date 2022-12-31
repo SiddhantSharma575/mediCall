@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Profile from '../images/pro.jpg'
 import CartImg from "../images/cart.png"
 import './header.css'
@@ -9,8 +9,14 @@ import { setUser } from "../redux/userSlice"
 
 
 const Header = () => {
-    const navigate = useNavigate()
     const dispatch = useDispatch()
+    useEffect(() => {
+        const currentUser = JSON.parse(localStorage.getItem("user"))
+        if (currentUser) {
+            dispatch(setUser(currentUser))
+        }
+    }, [])
+    const navigate = useNavigate()
     const user = useSelector((state) => state.user.user)
     const handleLogOut = () => {
         dispatch(setUser(null))

@@ -3,10 +3,12 @@ const mongoose = require("mongoose")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
 const errorHandler = require("./middlewares/ErrorHandling");
-require("dotenv").config()
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config({ path: __dirname + '/.env' });
+}
 const app = express()
 app.use(express.json())
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const AuthRouter = require("./routes/AuthRouter")
 const ProductRouter = require("./routes/ProductRouter")
 const CartRouter = require("./routes/CartRouter")
@@ -31,6 +33,15 @@ app.use("/cart", CartRouter)
 app.use("/order", OrderRouter)
 
 app.use(errorHandler)
+
+// static files (build of your frontend)
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../client', 'build')));
+    app.get('/*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../client', 'build', 'index.html'));
+    })
+}
+
 app.listen(PORT, () => {
     console.log(`App Listening on PORT ${PORT}`)
 })

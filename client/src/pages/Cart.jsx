@@ -6,6 +6,7 @@ import './cart.css'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import axios from "axios"
+import { useNavigate } from 'react-router-dom'
 
 const Cart = () => {
     const user = useSelector((state) => state.user.user)
@@ -13,6 +14,7 @@ const Cart = () => {
     const [carts, setCarts] = useState([])
     const [total, setTotal] = useState(0)
     const [address, setAddress] = useState("")
+    const navigate = useNavigate()
     useEffect(() => {
         const getCarts = async () => {
             const result = await axios.get("http://localhost:5000/cart/myCart/" + userID)
@@ -30,13 +32,17 @@ const Cart = () => {
         setTotal(cctotal)
     }, [carts])
 
-    const handleOrder = () => {
+    const handleOrder = async () => {
         const obj = {
+            userId: user._id,
             address: address,
             customer: user.name,
             total: total,
             status: 0,
         }
+        const resp = await axios.post("http://localhost:5000/order/add", obj)
+        console.log(resp)
+        navigate("/orders")
     }
 
     return (
