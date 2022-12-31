@@ -18,14 +18,14 @@ const SingleProduct = () => {
     const [quant, setQuantity] = useState(1)
     useEffect(() => {
         const getProduct = async (req, res, next) => {
-            const resp = await axios.get(`http://localhost:5000/product/${location.state.id}`)
+            const resp = await axios.get(`/product/${location.state.id}`)
             setProduct(resp.data)
         }
         getProduct()
     }, [])
 
     const handleAdd = async () => {
-        const resp = await axios.post("http://localhost:5000/cart/addCart", {
+        const resp = await axios.post("/cart/addCart", {
             title: product.title,
             product_id: product._id,
             user_id: userID,

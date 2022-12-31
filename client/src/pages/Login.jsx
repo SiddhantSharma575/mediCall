@@ -22,7 +22,7 @@ const Login = () => {
             alert("Please fill all the details")
             return;
         }
-        const res = await axios.post("http://localhost:5000/api/login", userDetails)
+        const res = await axios.post("/api/login", userDetails)
         if (res.data._id) {
             localStorage.setItem("user", JSON.stringify(res.data))
             dispatch(setUser(res.data))

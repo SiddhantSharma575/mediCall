@@ -16,7 +16,7 @@ const Order = () => {
     console.log(location.state.id)
     useEffect(() => {
         const getSingleProd = async () => {
-            const resp = await axios.get("http://localhost:5000/order/" + location.state.id)
+            const resp = await axios.get("/order/" + location.state.id)
             console.log(resp.data)
             status = resp.data.status;
             setSingleOrder(resp.data)

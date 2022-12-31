@@ -11,7 +11,7 @@ const Products = () => {
     const [items, setItems] = useState([])
     useEffect(() => {
         const getProducts = async () => {
-            const res = await axios.get("http://localhost:5000/product/all")
+            const res = await axios.get("/product/all")
             setItems(res.data)
         }
         getProducts()

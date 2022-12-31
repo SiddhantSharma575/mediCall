@@ -13,7 +13,7 @@ const AllOrders = () => {
     const [allOrders, setAllOrders] = useState([])
     useEffect(() => {
         const getOrders = async () => {
-            const res = await axios.get("http://localhost:5000/order/all/" + user._id)
+            const res = await axios.get("/order/all/" + user._id)
             setAllOrders(res.data)
         }
         getOrders()

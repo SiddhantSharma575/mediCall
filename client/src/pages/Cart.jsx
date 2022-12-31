@@ -17,7 +17,7 @@ const Cart = () => {
     const navigate = useNavigate()
     useEffect(() => {
         const getCarts = async () => {
-            const result = await axios.get("http://localhost:5000/cart/myCart/" + userID)
+            const result = await axios.get("/cart/myCart/" + userID)
             setCarts(result.data)
         }
         getCarts()
@@ -40,7 +40,7 @@ const Cart = () => {
             total: total,
             status: 0,
         }
-        const resp = await axios.post("http://localhost:5000/order/add", obj)
+        const resp = await axios.post("/order/add", obj)
         console.log(resp)
         navigate("/orders")
     }
