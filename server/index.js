@@ -10,10 +10,7 @@ if (process.env.NODE_ENV !== 'production') {
 const app = express()
 app.use(express.json())
 const PORT = process.env.PORT || 5000;
-const AuthRouter = require("./routes/AuthRouter")
-const ProductRouter = require("./routes/ProductRouter")
-const CartRouter = require("./routes/CartRouter")
-const OrderRouter = require("./routes/OrderRouter")
+
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(cookieParser())
 
@@ -28,12 +25,14 @@ db.once('open', () => {
 });
 
 
-app.use("/api", AuthRouter)
-app.use("/product", ProductRouter)
-app.use("/cart", CartRouter)
-app.use("/order", OrderRouter)
+// app.use("/api", AuthRouter)
+// app.use("/product", ProductRouter)
+// app.use("/cart", CartRouter)
+// app.use("/order", OrderRouter)
 
 app.use(errorHandler)
+app.use('/', require(path.join(__dirname, "./routes", "api", "route.js")));
+
 
 // static files (build of your frontend)
 if (process.env.NODE_ENV === 'production') {
