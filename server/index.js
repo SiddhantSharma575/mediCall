@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
+const path = require("path")
 const errorHandler = require("./middlewares/ErrorHandling");
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config({ path: __dirname + '/.env' });
