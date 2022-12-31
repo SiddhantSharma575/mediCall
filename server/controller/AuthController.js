@@ -1,7 +1,7 @@
 const Joi = require("joi")
 const user = require("../models/user")
 const CustomErrorHandler = require("../services/CustomErrorHandler")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const JwtService = require("../services/JwtService")
 
 const register = async (req, res, next) => {
