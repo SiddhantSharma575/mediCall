@@ -13,6 +13,7 @@ const ItemsList = () => {
         }
         getItems()
     }, [])
+    console.log(items)
     return (
         <div className="f_container">
             <h1 className="title">THE BEST MEDICINES</h1>
