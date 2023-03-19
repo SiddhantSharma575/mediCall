@@ -44,5 +44,17 @@ const getCart = async (req, res, next) => {
     }
 }
 
+const deleteCart = async (req, res, next) => {
+    try {
+        await Cart.deleteMany({ user_id: req.params.id })
+        return res.json({
+            message: "Carts Deleted Successfully"
+        })
+    } catch (error) {
+        return next(error)
+    }
+}
+
 exports.addCart = addCart
 exports.getCart = getCart
+exports.deleteCart = deleteCart

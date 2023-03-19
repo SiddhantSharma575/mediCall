@@ -24,7 +24,7 @@
     justify-content: space-between;
 }
 
-.con_form_container > input {
+.con_form_container > form >  input {
     background-color: white;
     padding: 1.5rem;
     margin: 1rem;
@@ -34,7 +34,7 @@
     border-radius: 10px;
 }
 
-.con_form_container > button {
+.con_form_container > form >  button {
     width: 17rem;
     padding: 1rem;
     margin: 1rem;

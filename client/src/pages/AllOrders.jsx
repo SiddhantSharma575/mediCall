@@ -18,12 +18,13 @@ const AllOrders = () => {
         }
         getOrders()
     }, [])
+    console.log(allOrders)
     return (
         <div>
             <Header />
             <div className='all_order'>
                 {
-                    allOrders.map((order) => (
+                    allOrders.length === 0 ? <div>No Orders Found</div> : allOrders.map((order) => (
                         <OrderCart order={order} />
                     ))
                 }

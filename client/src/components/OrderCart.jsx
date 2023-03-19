@@ -18,9 +18,10 @@ const OrderCart = ({ order }) => {
                 id: order._id
             }
         })}>
-            <img src={First} alt="" width="200px" height="200px" />
+            <img src={First} alt="" width="200px" height="200px" className='img_order' />
             <h4>Id : {order._id}</h4>
             <h4>Order Status : {stsStr}</h4>
+            <h4>Placed At  : {new Date(order.createdAt).toLocaleString()}</h4>
         </div>
     )
 }

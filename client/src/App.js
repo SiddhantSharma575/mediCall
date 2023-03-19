@@ -14,6 +14,7 @@ import AllOrders from './pages/AllOrders';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from "./redux/userSlice"
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const user = useSelector((state) => state.user.user)
@@ -27,6 +28,7 @@ function App() {
 
   return (
     <BrowserRouter basename='/'>
+      <ScrollToTop />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />

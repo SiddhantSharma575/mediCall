@@ -8,12 +8,13 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from "axios"
 import { useSelector } from 'react-redux'
+import ErrorPage from './ErrorPage'
 
 const SingleProduct = () => {
-    const navigate = useNavigate()
-    const userID = useSelector((state) => state.user.user._id)
+    const navigate = useNavigate();
+    const user = useSelector((state) => state.user);
+    // const userID = useSelector((state) => state.user.user._id);
     const location = useLocation()
-    console.log(location.state.id)
     const [product, setProduct] = useState("")
     const [quant, setQuantity] = useState(1)
     useEffect(() => {
@@ -22,21 +23,24 @@ const SingleProduct = () => {
             setProduct(resp.data)
         }
         getProduct()
-    }, [])
+    }, [location.state.id])
+
+
 
     const handleAdd = async () => {
         const resp = await axios.post("/cart/addCart", {
             title: product.title,
             product_id: product._id,
-            user_id: userID,
+            user_id: user.user._id,
             quantity: Number(quant),
             price: product.price,
             img: product.img
         })
-
+        console.log(resp)
         navigate("/cart")
     }
-    return (
+    return user.user === null ? <ErrorPage
+    /> : (
         <div>
             <Header />
             <div className="single_container">
@@ -51,7 +55,7 @@ const SingleProduct = () => {
 
                     <div className="single_add">
                         <input type="number" defaultValue={1} className="single_quantity" plac1eholder='Quantity' value={quant} onChange={(e) => setQuantity(e.target.value)} />
-                        <button className="single_button" onClick={handleAdd}>Add to Cart</button>
+                        <button className="single_button" onClick={() => handleAdd()}>Add to Cart</button>
                     </div>
                 </div>
             </div>

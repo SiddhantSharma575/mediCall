@@ -12,7 +12,7 @@ const Profile = () => {
             <Header />
             <div className="profile_container">
                 <img src={ProfilePic} alt="" />
-                <h4>{user && user.name}</h4>
+                <h4> Username : {user && user.name}</h4>
             </div>
             <Footer />
         </div>

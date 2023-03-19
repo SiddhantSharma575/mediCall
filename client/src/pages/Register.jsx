@@ -16,6 +16,10 @@ const Register = () => {
     })
 
     const handleRegister = async () => {
+        if (!userDetail.email || !userDetail.password || !userDetail.name) {
+            alert("Please fill all the details")
+            return;
+        }
         const res = await axios.post("/api/register", userDetail)
         navigate("/login")
     }

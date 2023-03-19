@@ -41,62 +41,74 @@ const Cart = () => {
             status: 0,
         }
         const resp = await axios.post("/order/add", obj)
+        const deleteCarts = await axios.delete("/cart/myCart/" + userID)
         console.log(resp)
+        console.log(deleteCarts)
         navigate("/orders")
     }
 
     return (
+
         <div>
             <Header />
-            <div className="main_cart_container">
-                <div className="cart_left">
-                    <table className="cart_table">
-                        <tr className="cart_trTitle">
-                            <th>Product</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                        </tr>
-                        {
-                            carts.map((cc) => (
-                                <tr className="cart_tr" key={cc._id}>
-                                    <td>
-                                        <div className="main_cart_imgContainer">
-                                            <img
-                                                src={cc.img}
-                                                alt=""
-                                            />
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span className="main_cart_name">{cc.title}</span>
-                                    </td>
-                                    <td>
-                                        <span className="main_cart_price">₹{cc.price}</span>
-                                    </td>
-                                    <td>
-                                        <span className="main_cart_quantity">{cc.quantity}</span>
-                                    </td>
-                                    <td>
-                                        <span className="main_cart_total">₹{Number(cc.price * cc.quantity)}</span>
-                                    </td>
+            {
+                carts.length === 0 ? <div style={{
+                    height: "400px", display: 'flex',
+                    alignItems: "center",
+                    justifyContent: "center"
+                }}>
+                    <h1>Cart is Empty</h1>
+                </div> :
+                    <div className="main_cart_container">
+                        <div className="cart_left">
+                            <table className="cart_table">
+                                <tr className="cart_trTitle">
+                                    <th>Product</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
                                 </tr>
-                            ))
-                        }
-                    </table>
-                </div>
-                <div className="main_cart_right">
-                    <div className="main_cart_wrapper">
-                        <h2 className="main_cart_title">CART TOTAL</h2>
-                        <div className="main_cart_totalText">
-                            <b className="main_carttotalTextTitle">Subtotal:</b>₹{total}
+                                {
+                                    carts.map((cc) => (
+                                        <tr className="cart_tr" key={cc._id}>
+                                            <td>
+                                                <div className="main_cart_imgContainer">
+                                                    <img
+                                                        src={cc.img}
+                                                        alt=""
+                                                    />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span className="main_cart_name">{cc.title}</span>
+                                            </td>
+                                            <td>
+                                                <span className="main_cart_price">₹{cc.price}</span>
+                                            </td>
+                                            <td>
+                                                <span className="main_cart_quantity">{cc.quantity}</span>
+                                            </td>
+                                            <td>
+                                                <span className="main_cart_total">₹{Number(cc.price * cc.quantity)}</span>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </table>
                         </div>
-                        <input type="text" placeholder='Enter Address' value={address} onChange={(e) => setAddress(e.target.value)} />
-                        <button className="main_cart_button" onClick={handleOrder}>CHECKOUT NOW!</button>
+                        <div className="main_cart_right">
+                            <div className="main_cart_wrapper">
+                                <h2 className="main_cart_title">CART TOTAL</h2>
+                                <div className="main_cart_totalText">
+                                    <b className="main_carttotalTextTitle">Subtotal:</b>₹{total}
+                                </div>
+                                <input type="text" placeholder='Enter Address' value={address} onChange={(e) => setAddress(e.target.value)} />
+                                <button className="main_cart_button" onClick={handleOrder}>CHECKOUT NOW!</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+            }
             <Footer />
         </div>
     )

@@ -17,9 +17,8 @@ const ItemsList = () => {
         <div className="f_container">
             <h1 className="title">THE BEST MEDICINES</h1>
             <p className="desc">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut blandit arcu
-                in pretium molestie. Interdum et malesuada fames acme. Lorem ipsum dolor
-                sit amet, consectetur adipiscing elit.
+                Here you will get best medicines with atleast 2 year+ expiry with decent & discounted market prices.
+                Let's explore
             </p>
             <div className="wrapper">
                 {
